@@ -9,6 +9,7 @@ import com.tms.exception.BadRequestException;
 import com.tms.exception.ResourceNotFoundException;
 import com.tms.repository.ExpenseRepository;
 import com.tms.repository.InvoiceRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -36,6 +37,13 @@ public class InvoiceService {
     @Transactional(readOnly = true)
     public Page<InvoiceResponse> getAllInvoices(int page, int size, InvoiceStatus status, LocalDate from, LocalDate to) {
         return invoiceRepo.findWithFilters(status, from, to, PageRequest.of(page, size)).map(this::toResponse);
+    }
+
+    @Transactional(readOnly = true)
+    public Invoice findByIdWithItems(UUID id) {
+        return invoiceRepo.findByIdWithItems(id)
+                .orElseThrow(() ->
+                        new EntityNotFoundException("Invoice not found: " + id));
     }
 
     @Transactional(readOnly = true)
@@ -129,6 +137,13 @@ public class InvoiceService {
     @Transactional
     public void deleteInvoice(UUID id) {
         invoiceRepo.delete(findById(id));
+    }
+
+    @Transactional(readOnly = true)
+    public Invoice findForPdf(UUID id) {
+        return invoiceRepo.findByIdForPdf(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Invoice", "id", id));
     }
 
     public Invoice findById(UUID id) {
