@@ -87,7 +87,6 @@ services:
     networks:
       - tms-network
 
-
   frontend:
     build:
       context: ./tms-frontend
@@ -109,9 +108,69 @@ services:
     restart: unless-stopped
     networks:
       - tms-network
+  
+  cadvisor:
+    image: ghcr.io/google/cadvisor:0.60.6
+    container_name: tms-cadvisor
+    privileged: true
+    ports:
+      - "8083:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+    cpus: 0.5
+    mem_limit: 256m
+    memswap_limit: 256m
+    restart: unless-stopped
+    networks:
+      - tms-network
+
+  prometheus:
+    image: prom/prometheus:v3.15.0
+    container_name: tms-prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    depends_on:
+      - cadvisor
+    cpus: 0.5
+    mem_limit: 512m
+    memswap_limit: 512m
+    restart: unless-stopped
+    networks:
+      - tms-network
+
+  grafana:
+    image: grafana/grafana:12.3.2
+    container_name: tms-grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+    depends_on:
+      - prometheus
+    cpus: 0.5
+    mem_limit: 512m
+    memswap_limit: 512m
+    restart: unless-stopped
+    networks:
+      - tms-network
 
 volumes:
   postgres-data:
+  prometheus-data:
+  grafana-data:
 
 networks:
   tms-network:

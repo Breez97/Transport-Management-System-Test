@@ -89,3 +89,5 @@ tms-frontend/coverage/
 *.orig
 *.patch
 certs/*.key
+
+jmeter/data/*.csv

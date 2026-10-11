@@ -8,7 +8,7 @@ spring:
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/tmsdb}
     username: ${DB_USERNAME:tms}
-    password: ${DB_PASSWORD:tms}
+    password: ${DB_PASSWORD:tmspass}
     driver-class-name: org.postgresql.Driver
 
   jpa:
