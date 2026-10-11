@@ -7,6 +7,7 @@ import com.tms.service.VehicleLocationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "Vehicle Location", description = "GPS tracking APIs")
@@ -50,8 +52,9 @@ public class VehicleLocationController {
     public ResponseEntity<ApiResponse<List<VehicleLocationResponse>>> getVehicleLocationHistory(
             @PathVariable UUID vehicleId,
             @RequestParam LocalDateTime from,
-            @RequestParam LocalDateTime to) {
-        return ResponseEntity.ok(ApiResponse.ok(locationService.getVehicleLocationHistory(vehicleId, from, to)));
+            @RequestParam LocalDateTime to,
+            @RequestParam(defaultValue = "1000") int limit) {
+        return ResponseEntity.ok(ApiResponse.ok(locationService.getVehicleLocationHistory(vehicleId, from, to, limit)));
     }
 }
 

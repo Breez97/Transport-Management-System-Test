@@ -7,6 +7,7 @@ import com.tms.repository.VehicleLocationHistoryRepository;
 import com.tms.repository.VehicleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,9 +66,23 @@ public class VehicleLocationService {
     }
 
     @Transactional(readOnly = true)
-    public List<VehicleLocationResponse> getVehicleLocationHistory(UUID vehicleId, LocalDateTime from, LocalDateTime to) {
-        return locationRepo.findByVehicleIdAndRecordedAtBetweenOrderByRecordedAtAsc(vehicleId, from, to)
-                .stream().map(this::toResponse).toList();
+    public List<VehicleLocationResponse> getVehicleLocationHistory(
+            UUID vehicleId,
+            LocalDateTime from,
+            LocalDateTime to,
+            int limit) {
+
+        int size = Math.max(1, Math.min(limit, 5000));
+        return locationRepo
+                .findByVehicleIdAndRecordedAtBetweenOrderByRecordedAtAsc(
+                        vehicleId,
+                        from,
+                        to,
+                        PageRequest.of(0, size)
+                )
+                .stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     private VehicleLocationResponse toResponse(VehicleLocationHistory l) {

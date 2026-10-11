@@ -75,7 +75,7 @@ public class VehicleController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{id}/location")
+    @PostMapping("/{id}/current-location")
     @PreAuthorize("hasAnyRole('ADMIN', 'DRIVER')")
     @Operation(summary = "Update vehicle GPS location")
     public ResponseEntity<ApiResponse<VehicleResponse>> updateLocation(

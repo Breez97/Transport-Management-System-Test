@@ -4,6 +4,7 @@ import com.tms.entity.Invoice;
 import com.tms.enums.InvoiceStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,5 +27,13 @@ public interface InvoiceRepository extends JpaRepository<Invoice, UUID> {
                                   @Param("from") LocalDate from,
                                   @Param("to") LocalDate to,
                                   Pageable pageable);
+
+    @EntityGraph(attributePaths = {"items"})
+    @Query("select i from Invoice i where i.id = :id")
+    Optional<Invoice> findByIdWithItems(@Param("id") UUID id);
+
+    @EntityGraph(attributePaths = "items")
+    @Query("SELECT i FROM Invoice i WHERE i.id = :id")
+    Optional<Invoice> findByIdForPdf(@Param("id") UUID id);
 }
 

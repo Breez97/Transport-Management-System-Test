@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Data
 public class LocationUpdateRequest {
-    @NotNull private UUID vehicleId;
+    private UUID vehicleId;
     private UUID tripId;
     @NotNull private Double latitude;
     @NotNull private Double longitude;

@@ -73,7 +73,7 @@ public class InvoiceController {
     @PreAuthorize("hasAnyRole('ADMIN', 'DISPATCHER')")
     @Operation(summary = "Download invoice as PDF")
     public ResponseEntity<byte[]> downloadPdf(@PathVariable UUID id) {
-        com.tms.entity.Invoice invoice = invoiceService.findById(id);
+        com.tms.entity.Invoice invoice = invoiceService.findForPdf(id);
         byte[] pdf = invoicePdfService.generatePdf(invoice);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + invoice.getInvoiceNumber() + ".pdf")
