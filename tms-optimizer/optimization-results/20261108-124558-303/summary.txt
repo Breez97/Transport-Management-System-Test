@@ -1,0 +1,3 @@
+Baseline: 128MB, 3 runs, mean RPS 35.702, mean P95 1015.3ms, mean errors 0.000%
+Selected candidate: 320MB, 3 runs, mean RPS 43.895, mean P95 766.0ms, mean errors 0.000%
+RPS change: +22.95%
