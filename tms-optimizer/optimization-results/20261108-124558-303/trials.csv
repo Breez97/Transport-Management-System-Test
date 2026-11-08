@@ -1,0 +1,13 @@
+shared_buffers_mb,repetition,requests,successful,errors,rps,p95_ms,error_percent,measured_seconds,jtl
+128,1,4733,4733,0,35.070,1080,0.000,134.96,"D:\IdeaProjects\transport-management-system\tms-optimizer\results\20261108-124655-385\results.jtl"
+64,1,4575,4575,0,33.964,1099,0.000,134.70,"D:\IdeaProjects\transport-management-system\tms-optimizer\results\20261108-125059-404\results.jtl"
+192,1,4975,4975,0,36.933,941,0.000,134.71,"D:\IdeaProjects\transport-management-system\tms-optimizer\results\20261108-125505-816\results.jtl"
+256,1,5500,5500,0,40.643,873,0.000,135.32,"D:\IdeaProjects\transport-management-system\tms-optimizer\results\20261108-125910-844\results.jtl"
+320,1,6195,6195,0,46.053,726,0.000,134.52,"D:\IdeaProjects\transport-management-system\tms-optimizer\results\20261108-130316-758\results.jtl"
+384,1,5987,5987,0,44.432,750,0.000,134.74,"D:\IdeaProjects\transport-management-system\tms-optimizer\results\20261108-130719-356\results.jtl"
+288,1,5995,5995,0,44.558,762,0.000,134.54,"D:\IdeaProjects\transport-management-system\tms-optimizer\results\20261108-131126-803\results.jtl"
+352,1,5961,5961,0,44.252,773,0.000,134.71,"D:\IdeaProjects\transport-management-system\tms-optimizer\results\20261108-131531-754\results.jtl"
+128,2,4871,4871,0,36.166,1002,0.000,134.69,"D:\IdeaProjects\transport-management-system\tms-optimizer\results\20261108-131937-980\results.jtl"
+320,2,5757,5757,0,42.809,781,0.000,134.48,"D:\IdeaProjects\transport-management-system\tms-optimizer\results\20261108-132343-675\results.jtl"
+128,3,4852,4852,0,35.869,964,0.000,135.27,"D:\IdeaProjects\transport-management-system\tms-optimizer\results\20261108-132747-452\results.jtl"
+320,3,5754,5754,0,42.823,791,0.000,134.37,"D:\IdeaProjects\transport-management-system\tms-optimizer\results\20261108-133153-963\results.jtl"

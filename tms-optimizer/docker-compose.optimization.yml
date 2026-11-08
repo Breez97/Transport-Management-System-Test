@@ -1,0 +1,6 @@
+services:
+  postgres:
+    command:
+      - postgres
+      - -c
+      - shared_buffers=${PG_SHARED_BUFFERS:-128MB}

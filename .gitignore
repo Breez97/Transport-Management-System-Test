@@ -91,3 +91,4 @@ tms-frontend/coverage/
 certs/*.key
 
 jmeter/data/*.csv
+*.dump
